@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="731cdcf1-1ee5-4323-bdf6-7ff000b22337">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="txtUsuario" class="java.lang.String"/>
+	<field name="nombres" class="java.lang.String"/>
+	<field name="apellidos" class="java.lang.String"/>
+	<field name="fechaNacimiento" class="java.util.Date"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="131" y="9" width="267" height="70" uuid="62f2370e-1da0-42bc-84eb-1fa3fde0ee28"/>
+				<textElement>
+					<font size="36"/>
+				</textElement>
+				<text><![CDATA[JSF REPORTE]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="19" y="0" width="100" height="20" uuid="776cb7fe-1745-4707-ad69-052ae4c4c531"/>
+				<text><![CDATA[Impreso por;]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="168" y="0" width="100" height="20" uuid="6915e354-24bc-47ab-ae88-1f2591d7142b"/>
+				<textFieldExpression><![CDATA[$P{txtUsuario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement x="38" y="2" width="100" height="20" uuid="db65556d-5c51-4a32-9f58-28a92873f76e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[nombres]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="168" y="2" width="100" height="20" uuid="dba79c29-b044-4eba-b407-7a33c0a19bc8"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[apellidos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="328" y="2" width="100" height="20" uuid="5286449f-031d-4f71-acb5-9fc246ed86e8"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[fechaNacimiento]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="60" splitType="Stretch">
+			<textField>
+				<reportElement x="38" y="16" width="100" height="20" uuid="1d4be41a-e064-4796-8924-1f9ed2d5b831"/>
+				<textFieldExpression><![CDATA[$F{nombres}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="168" y="17" width="100" height="20" uuid="abcbc719-843f-4bc7-ba4f-76f4e0db3c6f"/>
+				<textFieldExpression><![CDATA[$F{apellidos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="328" y="14" width="100" height="20" uuid="9947fc3d-1f29-41f7-bc72-d10daa825249"/>
+				<textFieldExpression><![CDATA[$F{fechaNacimiento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
