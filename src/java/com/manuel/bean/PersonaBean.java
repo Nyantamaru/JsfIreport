@@ -1,10 +1,6 @@
 
 package com.manuel.bean;
-
-
-
-
-
+//faltan cosas
 import java.util.*;
 import java.util.List;
 import java.util.ArrayList;
