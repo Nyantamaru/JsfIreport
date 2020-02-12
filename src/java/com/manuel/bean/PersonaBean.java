@@ -8,6 +8,7 @@ import com.manuel.model.Persona;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
 import javax.annotation.ManagedBean;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -22,6 +23,8 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import javax.inject.Named;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
 
 @Named(value = "personaBean")
 @RequestScoped
@@ -73,7 +76,7 @@ stream.close();
 FacesContext.getCurrentInstance().responseComplete();
  } 
 
-  public void exportarEXEL(ActionEvent actionEvent) throws JRException, IOException{
+  public void exportarExcel(ActionEvent actionEvent) throws JRException, IOException{
     Map<String,Object> parametros = new HashMap<String,Object>(); 
     parametros.put("txtUsuario", "manuel");
 
@@ -84,13 +87,11 @@ HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInst
 response.addHeader("Context-disposition","attachment; filename=jsfReporte.xls");
 ServletOutputStream stream = response.getOutputStream();
 
-//@Deprecated hace algo
+
 JRXLsExporter exporter = new JRXLsExporter();
-
 exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-
-exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,outStream);
-exporter.exporter();
+exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,stream);
+exporter.exportReport();
 
 stream.flush();
 stream.close();
@@ -108,12 +109,11 @@ response.addHeader("Context-disposition","attachment; filename=jsfReporte.ptt");
 ServletOutputStream stream = response.getOutputStream();
 
 //@Deprecated hace algo
-JRXLsExporter exporter = new JRXLsExporter();
+JRPptExporter exporter = new JRPptExporter();
 
 exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-
-exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,outStream);
-exporter.exporter();
+exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,stream);
+exporter.exportReport();
 
 stream.flush();
 stream.close();
@@ -131,15 +131,32 @@ response.addHeader("Context-disposition","attachment; filename=jsfReporte.doc");
 ServletOutputStream stream = response.getOutputStream();
 
 //@Deprecated hace algo
-JRXLsExporter exporter = new JRXLsExporter();
+JRDocxExporter exporter = new JRDocxExporter();
 
 exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-
-exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,outStream);
-exporter.exporter();
+exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,stream);
+exporter.exportReport();
 
 stream.flush();
 stream.close();
 FacesContext.getCurrentInstance().responseComplete();
-  }
+  }//fin del metodo exportar en doc
+      
+      public void verPDF(ActionEvent actionEvent) throws Exception{
+      File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/rpJSF.jasper"));
+      
+      byte[] bytes = JasperRunManager.runReportToPdf(jasper.getPath(),null,JRBeanCollectionDataSource(this.getPersonas()));
+      HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+      response.setContentType("application/pdf");
+      response.setContentLength(bytes.length);
+      ServletOutputStream outStream = response.getOutputStream();
+      outStream.write(bytes,0,bytes.length);
+      outStream.flush();
+      outStream.close();
+      
+      FacesContext.getCurrentInstance().responseComplete();
+      }//fin del metodo ver pdf
+
+    
+      
 }//fin de la clase

@@ -9,7 +9,10 @@
         JSF + Jaspert Reports
         <h:form>
             <h:commandButton  value="Exportar PDF" actionListener="#{personaBean.exportarPDF(actionEvent)}"/>
-            <h:commandButton  value="Exportar EXEL" actionListener="#{personaBean.exportarEXEL(actionEvent)}"/>
+            <h:commandButton  value="Exportar EXEL" actionListener="#{personaBean.exportarExcel(actionEvent)}"/>
+            <h:commandButton  value="Exportar PTT" actionListener="#{personaBean.exportarPTT(actionEvent)}"/>
+            <h:commandButton  value="Exportar DOC" actionListener="#{personaBean.exportarDOC(actionEvent)}"/> 
+            <h:commandButton  value="Ver el PDF" actionListener="#{personaBean.verPDF(actionEvent)}"/> 
         </h:form>
     </h:body>
 </html>
